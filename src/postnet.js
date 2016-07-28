@@ -1,6 +1,6 @@
 let all = require('./codes');
 let _ = require('../lib/lodash/lodash.js');
-function parseBarcode(barcodeString) {
+function parseBarcode (barcodeString) {
     let checkedBarcode = checkBarcode(barcodeString);
     let transformedBarcode = transformBarcode(checkedBarcode);
     let recheckedZipcode = recheckZipcode(transformedBarcode);

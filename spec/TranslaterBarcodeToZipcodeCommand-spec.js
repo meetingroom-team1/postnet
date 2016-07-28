@@ -1,24 +1,29 @@
 let TranslaterBarcodeToZipcodeCommand = require('../src/TranslaterBarcodeToZipcodeCommand');
+let CommandResponse = require('../src/CommandResponse');
 describe('command', function () {
 
     it('BarcodeToZipCommand-inputRight', function () {
-        let zipcode = '||:|:::|:|:|:::|:::||::||::|:|:|';
-        let barcode = new TranslaterBarcodeToZipcodeCommand().execute(zipcode);
-        let expected = {
-            text: '95713',
-            reset: true
-        }
-        expect(barcode).toEqual(expected);
+        let barcode = '||:|:::|:|:|:::|:::||::||::|:|:|';
+        let zipcode = new TranslaterBarcodeToZipcodeCommand().execute(barcode);
+
+        let text = '95713';
+        let reset = true;
+        let next = false;
+        let newMapping = false;
+        let expected = new CommandResponse(text, reset, false, newMapping);
+        expect(zipcode).toEqual(expected);
     });
     it('BarcodeToZipCommand-inputError', function () {
-        let zipcode = '||:|:::|:|:|:::|:::||::|::|:|:|';
-        let next = function () {};
-        let barcode = new TranslaterBarcodeToZipcodeCommand(next).execute(zipcode);
-        let expected = {
-            text: 'Please input right input:\n',
-            next
-        }
-        expect(barcode).toEqual(expected);
+        let barcode = '||:|:::|:|:|:::|:::||::|::|:|:|';
+        let next = function () {
+        };
+        let zipcode = new TranslaterBarcodeToZipcodeCommand(next).execute(barcode);
+        let expected = new CommandResponse('Please input right input:\n', false, next, false);
+        expect(zipcode).toEqual(expected);
     });
+});
 
-})
+
+
+
+

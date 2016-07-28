@@ -1,51 +1,56 @@
 let commands = require('./command');
 const MainCommand = require('./MainCommand');
+const GoToZipToBarcodePage = require('./GoToZipToBarcodePage');
+const GoToBarcodeToZipPage = require('./GoToBarcodeToZipPage');
+const GoQuit = require('./GoQuit');
 
-let mapping = {
-    '1': commands.goToZipToBarcodeCommand,
-    '2': commands.goToBarcodeToZipCommand,
-    '3': commands.goQuit,
-    'main': new MainCommand()
-}
-
-function route(input) {
-    let command = mapping[input];
-    let result = "";
-    let response = "";
-    if(command){
-        response = command(input);
-        result += response.text;
-    }else if(mapping['*']){
-        response = mapping['*'](input);
-        result = response.text;
-    }else{
-        return "no command\nPlease input right input:"
+class Route {
+    constructor() {
+        this.mapping = {
+            '1': new GoToZipToBarcodePage(),
+            '2': new GoToBarcodeToZipPage(),
+            '3': new GoQuit(),
+            'main': new MainCommand()
+        }
     }
 
-    if(response.next){
-        let newResponse;
-        do{
-            newResponse = response.next(input);
-            result += newResponse.text;
-            //console.log(result);
-        }while(newResponse.next)
+    execute(input) {
+        let command = this.mapping[input];
+        let result = "";
+        let response = "";
+        if (command) {
+            response = command.execute(input);
+            result += response.text;
+        } else if (this.mapping['*']) {
+            response = this.mapping['*'].execute(input);
+            result = response.text;
+        } else {
+            return "no command\nPlease input right input:"
+        }
+
+        if (response.next) {
+            let newResponse;
+            do {
+                newResponse = response.next.execute(input);
+                result += newResponse.text;
+                //console.log(result);
+            } while (newResponse.next)
+        }
+        if (response.reset) {
+            this.reset();
+        }
+        if (response.newMapping) {
+            this.mapping = response.newMapping
+        }
+        return result
     }
-    if(response.reset){
-        route.reset();
+    reset() {
+        this.mapping = {
+            '1': new GoToZipToBarcodePage(),
+            '2': new GoToBarcodeToZipPage(),
+            '3': new GoQuit(),
+            'main': new MainCommand()
+        }
     }
-    if(response.newMapping){
-        mapping = response.newMapping
-    }
-    //console.log(result);
-    return result
-    //if(response.reset)
 }
-route.reset = function () {
-    mapping = {
-        '1': commands.goToZipToBarcodeCommand,
-        '2': commands.goToBarcodeToZipCommand,
-        '3': commands.goQuit,
-        'main': commands.buildMainCommand
-    }
-}
-module.exports = route;
+module.exports = Route;

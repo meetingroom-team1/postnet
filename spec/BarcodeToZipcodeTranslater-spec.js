@@ -81,7 +81,7 @@ describe('postnet', function () {
     it('parseBarcode', function () {
         //let barcodeString = "|:|::|:|:|:||::::|:|::||:::::||::|:|::||::|::|||:::|";
         let barcodeString = "||:|:::|:|:|:::|:::||::||::|:|:|";
-        let parsedBarcode = new BarcodeToZipcodeTranslater().parseBarcode(barcodeString);
+        let parsedBarcode = new BarcodeToZipcodeTranslater().execute(barcodeString);
         //let expected = "45056-1234";
         let expected = {
             text: "95713",

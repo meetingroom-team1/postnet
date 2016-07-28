@@ -1,9 +1,7 @@
+let CommandResponse = require('./CommandResponse');
 class GoQuit {
     execute() {
-        return {
-            text: 'Thank you for using',
-            reset: true
-        }
+        return new CommandResponse('Thank you for using',true,false,false);
     }
 }
 

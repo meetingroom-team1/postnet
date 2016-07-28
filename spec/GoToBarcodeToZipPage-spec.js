@@ -1,14 +1,14 @@
 let TranslaterBarcodeToZipcodeCommand = require('../src/TranslaterBarcodeToZipcodeCommand');
 const goToBarcodeToZipPage = require("../src/GoToBarcodeToZipPage");
+let CommandResponse = require('../src/CommandResponse');
 describe('command', function () {
 
     it('goToZipToBarcodeCommand', function () {
-        let expected = {
-            text: 'Please input zip code:',
-            newMapping: {'*': new TranslaterBarcodeToZipcodeCommand(goToBarcodeToZipPage.goToBarcodeToZipPage)}
-        };
-        let response = goToBarcodeToZipPage.goToBarcodeToZipPage();
-        expect(response).toEqual(expected);
+        let next = new goToBarcodeToZipPage();
+        let text = 'Please input zip code:';
+        let newMapping = {'*': new TranslaterBarcodeToZipcodeCommand(next)};
+        let expected = new CommandResponse(text,false,false,newMapping);
+        expect(new goToBarcodeToZipPage().execute()).toEqual(expected);
     });
 
 })

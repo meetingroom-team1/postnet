@@ -3,7 +3,7 @@ let _ = require('../lib/lodash/lodash.js');
 let CoreResponse = require('./CoreResponse');
 
 class ZipcodeToBarcodeTranslater {
-    parseZipcode(barcodeString) {
+    execute(barcodeString) {
         let checkedZipcode = this.checkZipcode(barcodeString);
         let transformedZipcode = this.transformZipcode(checkedZipcode);
         let printBarcode = this.buildPrintBarcode(transformedZipcode);

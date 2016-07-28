@@ -71,7 +71,7 @@ describe('postnet', function () {
     // });
     it('parseZipcode', function () {
         let barcodeString = "95713";
-        let parsedZipcode = new ZipcodeToBarcodeTranslater().parseZipcode(barcodeString);
+        let parsedZipcode = new ZipcodeToBarcodeTranslater().execute(barcodeString);
         let expected = {
             text: "||:|:::|:|:|:::|:::||::||::|:|:|",
             type: true
