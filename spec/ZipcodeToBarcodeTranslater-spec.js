@@ -76,6 +76,7 @@ describe('postnet', function () {
             text: "||:|:::|:|:|:::|:::||::||::|:|:|",
             type: true
         };
-        expect(parsedZipcode).toEqual(expected);
+        expect(parsedZipcode.text).toEqual(expected.text);
+        expect(parsedZipcode.type).toEqual(expected.type);
     })
 });

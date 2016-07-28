@@ -87,6 +87,8 @@ describe('postnet', function () {
             text: "95713",
             type: true
         };
-        expect(parsedBarcode).toEqual(expected);
+        console.log(parsedBarcode);
+        expect(parsedBarcode.text).toEqual(expected.text);
+        expect(parsedBarcode.type).toEqual(expected.type);
     });
 });
