@@ -1,10 +1,13 @@
-let commands = require('./command')
+let commands = require('./command');
+const MainCommand = require('./MainCommand');
+
 let mapping = {
     '1': commands.goToZipToBarcodeCommand,
     '2': commands.goToBarcodeToZipCommand,
     '3': commands.goQuit,
-    'main': commands.buildMainCommand
+    'main': new MainCommand()
 }
+
 function route(input) {
     let command = mapping[input];
     let result = "";

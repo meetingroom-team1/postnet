@@ -8,8 +8,6 @@ class ZipcodeToBarcodeTranslater {
         let transformedZipcode = this.transformZipcode(checkedZipcode);
         let printBarcode = this.buildPrintBarcode(transformedZipcode);
         return printBarcode;
-        // return new CoreResponse(printBarcode.text,printBarcode.type);
-
     }
 
     checkZipcode(barcodeString) {
