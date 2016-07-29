@@ -11,20 +11,30 @@ class ZipcodeToBarcodeTranslater {
     }
 
     checkZipcode(barcodeString) {
-        let length = barcodeString.length;
-        if (length === 10 || length === 9 || length === 5) {
-            if (length === 10) {
-                let hasHypken = barcodeString.includes('-') && barcodeString.indexOf('-') === barcodeString.lastIndexOf('-');
-                if (!hasHypken) {
-                    return {type: false}
-                }
+        let array = barcodeString.split("");
+        let type = false;
+        let length = array.length;
+        if (length === 10) {
+            let hasHypken = array.includes('-') && array.indexOf('-') === array.lastIndexOf('-') && array.indexOf('-') == 5;
+            let isNumber = array.filter((barcodes) => isNaN(barcodes - 0) === false);
+            if (hasHypken && isNumber.length === 9) {
+                type = true
             }
-            return {
-                zipcode: barcodeString,
-                type: true
+        } else if (length === 9) {
+            let isNumber = array.filter((barcodes) => isNaN(barcodes - 0) === false);
+            if (isNumber.length === 9) {
+                type = true
+            }
+        } else if (length === 5) {
+            let isNumber = array.filter((barcodes) => isNaN(barcodes - 0) === false);
+            if (isNumber.length === 5) {
+                type = true
             }
         }
-        return {type: false}
+        return {
+            zipcode: barcodeString,
+            type
+        }
     }
 
     formatZipcode(checkedZipcode) {

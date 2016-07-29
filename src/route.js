@@ -1,4 +1,3 @@
-let commands = require('./command');
 const MainCommand = require('./MainCommand');
 const GoToZipToBarcodePage = require('./GoToZipToBarcodePage');
 const GoToBarcodeToZipPage = require('./GoToBarcodeToZipPage');
@@ -20,9 +19,12 @@ class Route {
         let response = "";
         if (command) {
             response = command.execute(input);
+            //console.log(response);
             result += response.text;
         } else if (this.mapping['*']) {
             response = this.mapping['*'].execute(input);
+            //console.log(response);
+
             result = response.text;
         } else {
             return "no command\nPlease input right input:"
@@ -32,12 +34,16 @@ class Route {
             let newResponse;
             do {
                 newResponse = response.next.execute(input);
+               // console.log(newResponse);
+
                 result += newResponse.text;
                 //console.log(result);
             } while (newResponse.next)
         }
         if (response.reset) {
             this.reset();
+            result += '\n';
+            result += this.mapping['main'].execute()._text;
         }
         if (response.newMapping) {
             this.mapping = response.newMapping

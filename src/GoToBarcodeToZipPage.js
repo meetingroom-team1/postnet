@@ -17,7 +17,7 @@ class GoToBarcodeToZipPage{
         //     next: false,
         //     newMapping: {'*': new TranslaterBarcodeToZipcodeCommand(temp)}
         // }
-        let text = 'Please input zip code:';
+        let text = 'Please input bar code:';
         let reset = false;
         let next = false;
         let newMapping = {'*': new TranslaterBarcodeToZipcodeCommand(this)};

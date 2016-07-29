@@ -4,7 +4,7 @@ describe('command', function () {
     
     it('goQuit',function () {
         let result = new GoQuit().execute();
-        let expected = new CommandResponse('Thank you for using',true,false,false);
+        let expected = new CommandResponse('Thank you for using',false,false,false);
         expect(result).toEqual(expected);
     });
 })

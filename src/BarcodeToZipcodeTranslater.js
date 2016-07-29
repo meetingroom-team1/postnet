@@ -54,18 +54,24 @@ class BarcodeToZipcodeTranslater {
     matchDigital(barcodeArrays, allCodes) {
         let type = true;
         let zipcodeArray = barcodeArrays.map((barcodeArray)=> {
-            let {zipcode} = allCodes.find((allcode) => allcode.barcode === barcodeArray);
-            if ({zipcode} === undefined) {
-                type = false;
-            } else {
-                return zipcode
+            let hasBarcode = allCodes.find((allcode) => allcode.barcode === barcodeArray);
+            if (hasBarcode !== undefined) {
+                return hasBarcode.zipcode
             }
-        });
-        return {
-            zipcodeArray,
-            type
+        }).filter((undefineds) => undefineds !== undefined);
+        if(zipcodeArray.length === barcodeArrays.length) {
+            return {
+                zipcodeArray,
+                type
+            }
+        }else{
+            return{
+                zipcodeArray,
+                type: false
+            }
         }
     }
+        
 
     
 

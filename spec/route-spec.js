@@ -23,32 +23,36 @@ describe('Route-spec', ()=> {
         let route = new Route();
         route.execute("1");
         let response = route.execute("95713");
-        expect(response).toEqual("||:|:::|:|:|:::|:::||::||::|:|:|")
+        let expected = '||:|:::|:|:|:::|:::||::||::|:|:|\n'+
+        '1. Translate zip code to bar code\n2. Translate bar code to zip code\n3. Quit\nPlease input your choices(1~3)';
+        expect(response).toEqual(expected)
     });
     it('translate-error', function () {
         let route = new Route();
         route.execute("1");
-        let response = route.execute("789456");
+        let response = route.execute("7894056");
         let expected = 'Please input right input:\nPlease input zip code:'
         expect(response).toEqual(expected)
     })
     it('input 2', function () {
         let route = new Route();
         let response = route.execute(2);
-        let expected = 'Please input zip code:';
+        let expected = 'Please input bar code:';
         expect(response).toEqual(expected);
     })
     it('translate', function () {
         let route = new Route();
         route.execute("2");
+        let expected = '95713\n'+
+            '1. Translate zip code to bar code\n2. Translate bar code to zip code\n3. Quit\nPlease input your choices(1~3)';
         let response = route.execute("||:|:::|:|:|:::|:::||::||::|:|:|");
-        expect(response).toEqual("95713")
+        expect(response).toEqual(expected)
     });
     it('translate-error', function () {
         let route = new Route();
      route.execute("2");
      let response = route.execute("||:|::|:|:|:::|:::||::||::|:|:|");
-     expect(response).toEqual("Please input right input:\nPlease input zip code:")
+     expect(response).toEqual("Please input right input:\nPlease input bar code:")
      });
     it('input 3', function () {
         let route = new Route();
